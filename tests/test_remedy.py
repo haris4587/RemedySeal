@@ -168,3 +168,34 @@ def test_nonpositive_assessment_bounds(contract, direct_vm, mutation):
     contract.evaluate(0)
     assert json.loads(contract.get_review(0))['history'][0]['assessment']['verdict'] == 'INCONCLUSIVE'
     assert direct_vm.run_validator()
+
+
+def line_answer():
+    a = answer()
+    for items in [a['baseline_quotes'], a['linkage_quotes']] + [c['quotes'] for c in a['checks']]:
+        for i, q in enumerate(items):
+            texts = Path('evidence', FILES[q['source']]).read_text().splitlines()
+            line = next(n + 1 for n, text in enumerate(texts) if len(text.strip()) >= 12)
+            items[i] = {'source': q['source'], 'line': line}
+    return a
+
+
+def test_numbered_citations(contract, direct_vm):
+    p = package()
+    contract.create_review(json.dumps(p))
+    mock(direct_vm, p, line_answer())
+    contract.evaluate(0)
+    a = json.loads(contract.get_review(0))['history'][0]['assessment']
+    assert a['verdict'] == 'PARTIALLY_FIXED'
+    assert 'quote' in a['evidence']['checks'][0]['quotes'][0]
+    assert direct_vm.run_validator()
+
+
+@pytest.mark.parametrize('bad_line', [0, -1, 99999, True, '1'])
+def test_invalid_line_references(contract, direct_vm, bad_line):
+    p, a = package(), line_answer()
+    a['baseline_quotes'][0]['line'] = bad_line
+    contract.create_review(json.dumps(p))
+    mock(direct_vm, p, a)
+    contract.evaluate(0)
+    assert json.loads(contract.get_review(0))['history'][0]['assessment']['verdict'] == 'INCONCLUSIVE'

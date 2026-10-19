@@ -1,0 +1,21 @@
+{
+  "network": "Studionet (hosted Studio sandbox)",
+  "studio": "https://studio.genlayer.com",
+  "explorer_contract": "https://explorer-studio.genlayer.com/address/0xe4ed5818a5441918a3dAd452eDb06936345d490b",
+  "contract_address": "0xe4ed5818a5441918a3dAd452eDb06936345d490b",
+  "account": "0x0a6a54B9e0fd10eD8E258a5955b26710f58D389f",
+  "execution_mode": "Normal (Full Consensus)",
+  "source_commit": "57350650ea943ebe227fa094639a0765ef1ce6c6",
+  "source_sha256": "6574a27ac2a1b99f8e5b6f4882e24af1744517c03b0c38949e0dcc42b1f86f11",
+  "source_bytes": 10711,
+  "deployed_source_match": true,
+  "deployment_tx": "0x4a9bd0e8435919acc2d567b54125139b71333e367a61d2c53108498b099567e8",
+  "create_review_tx": "0x22bbfa84881f0444cd6b0a10fbf2dfb092a88ac963990f2a9c37b6d7bbc9feda",
+  "deployment_status": "FINALIZED",
+  "create_review_status": "FINALIZED",
+  "full_consensus_tx": "0x70c6859ffff60db5893cd8e47d574d93b0290b9bec84872f86a8db80288d38d7",
+  "superseded": true,
+  "reason": "Initial live assessments failed strict output validation; citation selection revised to numbered lines.",
+  "retry_tx": "0x73d1afc2ed633cd331c9593cf44a657c029f3d15272dc19f24db5d7c22c85b8a",
+  "first_verdict": "INCONCLUSIVE"
+}

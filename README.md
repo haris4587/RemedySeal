@@ -13,7 +13,7 @@ Create an immutable review containing requirements and exactly four evidence rol
 | UNRESOLVED | Confirmed baseline/linkage; every requirement MISSING |
 | INCONCLUSIVE | Unknown requirement, unconfirmed baseline/linkage, unavailable/changed evidence or invalid model output |
 
-Positive closure requires exact quotations from both patched code and regression evidence. Validators also revalidate the leader's exact excerpts and reject forged results. This is semantic evidence assessment, **not execution of untrusted code or proof of universal security**.
+Model-selected numbered lines are resolved deterministically into exact excerpts. Positive closure requires exact quotations from both patched code and regression evidence. Validators also revalidate the leader's exact excerpts and reject forged results. This is semantic evidence assessment, **not execution of untrusted code or proof of universal security**.
 
 ## Contract interface
 

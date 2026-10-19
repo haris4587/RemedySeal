@@ -100,6 +100,23 @@ def agreement(a, b):
     return all(a[k] == b[k] for k in ('baseline', 'linkage', 'checks', 'verdict', 'reason'))
 
 
+def expand_references(data, texts):
+    # Resolve model-selected line IDs into exact source excerpts before validation/storage.
+    require(isinstance(data, dict), 'assessment object')
+    groups = [data.get('baseline_quotes', []), data.get('linkage_quotes', [])]
+    groups += [c.get('quotes', []) for c in data.get('checks', [])]
+    for items in groups:
+        require(isinstance(items, list) and len(items) <= 8, 'citation count')
+        for index, q in enumerate(items):
+            if isinstance(q, dict) and set(q) == {'source', 'line'}:
+                source, line = q['source'], q['line']
+                require(type(source) is int and 0 <= source < 4, 'source index')
+                lines = texts[source].splitlines()
+                require(type(line) is int and 1 <= line <= len(lines), 'line index')
+                items[index] = {'source': source, 'quote': lines[line - 1].strip()}
+    return data
+
+
 def inspect(p, candidate=None):
     texts = []
     for s in p['sources']:
@@ -126,19 +143,26 @@ def inspect(p, candidate=None):
     MISSING means the patch demonstrably leaves the requirement unsatisfied. UNKNOWN means evidence
     is insufficient, contradictory or ambiguous. Missing execution provenance may require UNKNOWN
     when runtime behavior is essential. Never equate a cosmetic edit with remediation.
-    Return only JSON: {"baseline": bool, "linkage": bool,
-    "baseline_quotes": [{"source":0,"quote":"exact excerpt"},{"source":1,"quote":"exact excerpt"}],
-    "linkage_quotes": [{"source":1,"quote":"exact excerpt"},{"source":2,"quote":"exact excerpt"}],
-    "checks":[{"status":"SATISFIED|MISSING|UNKNOWN","quotes":[{"source":2,"quote":"exact excerpt"}]}]}.
-    Quotes must be verbatim 12-500 characters. Confirmed baseline needs sources 0+1, linkage 1+2.
-    SATISFIED needs quotes from 2+3; MISSING needs 2; UNKNOWN may have empty quotes.
+    Return only JSON using these EXACT keys: {"baseline": true, "linkage": true,
+    "baseline_quotes": [{"source":0,"line":1},{"source":1,"line":1}],
+    "linkage_quotes": [{"source":1,"line":1},{"source":2,"line":1}],
+    "checks":[{"status":"MISSING","quotes":[{"source":2,"line":1}]}]}.
+    Replace example booleans/statuses/line numbers with your actual assessment.
+    Return exactly one check per locked requirement, in order. Valid statuses are
+    SATISFIED, MISSING, UNKNOWN. Select only supplied quote_options: their line numbers
+    are ONE-BASED within each source. Do not copy/rewrite quotes; return source and line.
+    Confirmed baseline needs sources 0+1, linkage 1+2. SATISFIED needs 2+3; MISSING needs 2;
+    UNKNOWN may use empty quotes. Each citation group may contain at most eight references.
     Source indices: 0 vulnerability, 1 affected, 2 patch (complete resulting code), 3 regression.
-    The locked package and authenticated contents follow as JSON data:\n'''
+    The locked package, contents and available citation options follow as JSON data:\n'''
+    quote_options = [[{'line': i + 1, 'text': line.strip()} for i, line in enumerate(text.splitlines())
+                      if 12 <= len(line.strip()) <= 500] for text in texts]
     try:
-        answer = gl.nondet.exec_prompt(prompt + canonical({'package': p, 'contents': texts}), response_format='json')
+        answer = gl.nondet.exec_prompt(prompt + canonical({'package': p, 'contents': texts, 'quote_options': quote_options}), response_format='json')
         data = json.loads(answer) if isinstance(answer, str) else answer
-        return validate_assessment(data, texts, len(p['requirements']))
-    except Exception:
+        return validate_assessment(expand_references(data, texts), texts, len(p['requirements']))
+    except Exception as error:
+        print('RemedySeal assessment rejected:', str(error)[:160])
         return inconclusive(len(p['requirements']), 'INVALID_ASSESSMENT')
 
 
