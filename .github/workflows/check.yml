@@ -1,0 +1,16 @@
+name: contract-checks
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements-dev.txt
+      - run: genvm-lint check contracts/remedy_seal.py
+        env:
+          GENVM_VERSION: v0.2.16
+      - run: PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -p gltest.direct.pytest_plugin -q tests --disable-warnings
+      - run: python evidence/regression.py
