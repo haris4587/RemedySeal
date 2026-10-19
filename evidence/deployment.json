@@ -1,0 +1,31 @@
+{
+  "network": "Studionet (hosted Studio sandbox)",
+  "contract_address": "0x350E2780656d22D67089e10A3ACE4f811cF987b7",
+  "account": "0x0a6a54B9e0fd10eD8E258a5955b26710f58D389f",
+  "execution_mode": "Normal (Full Consensus)",
+  "source_commit": "2e9ff35cad93b31ed43716ae17c07f57c4d330ad",
+  "source_sha256": "5d7dbbba2978878aa7113ba6dc455324f7f7f9f372fe97ff58eb8ee904a08d49",
+  "source_bytes": 12231,
+  "deployed_source_match": true,
+  "deployment_tx": "0xac3ac0b26d5d428534abd758db607fe94c657db55e602794281173909962921a",
+  "create_review_tx": "0x5e8d73aa61e3aca769bcce4a56925fdb2b321f5c952ab812b7c78bef099dad14",
+  "deployment_status": "FINALIZED",
+  "create_review_status": "FINALIZED",
+  "package_hash": "5401cb6e4e346d9a5bb3283a2132ed138353ba5a6b6a3597f9285fdc895ce9f8",
+  "full_consensus_tx": "0x009957a7874623e5f8f23a91a922cfb8e9ebaffbc6c2b20bb49fcdfa1b163dd8",
+  "full_consensus_status": "FINALIZED",
+  "execution_result": "SUCCESS",
+  "verdict": "UNRESOLVED",
+  "checks": [
+    "MISSING",
+    "MISSING"
+  ],
+  "decision_hash": "26829716154f1269dd4e6eb1897d433072bf9a416dcc98f967f6a3a5b8caa2ee",
+  "leader_rotations": 1,
+  "votes": {
+    "agree": 3,
+    "disagree": 1,
+    "idle": 1
+  },
+  "source_verified_from_explorer": true
+}

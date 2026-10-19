@@ -1,6 +1,6 @@
-GenVM pinned runner v0.2.16
+GenVM v0.2.16 pinned runner
 genvm-linter 0.11.0: Lint passed (3 checks); SDK validation passed, 4 methods (2 view, 2 write).
-genlayer-test 0.29.2 direct mode: 32 passed in 33.50s
-Regression demo: 3 assertions passed: normal nested read, absolute blocked, relative sibling bypass persists.
-Contract source SHA-256: 6574a27ac2a1b99f8e5b6f4882e24af1744517c03b0c38949e0dcc42b1f86f11
+genlayer-test 0.29.2 direct mode: 38 passed in 0.78s.
+Regression demo: normal nested read preserved; absolute sibling path rejected; relative sibling bypass persists.
+Contract source SHA-256: 5d7dbbba2978878aa7113ba6dc455324f7f7f9f372fe97ff58eb8ee904a08d49
 Direct web/LLM responses are mocked; live consensus is recorded separately.

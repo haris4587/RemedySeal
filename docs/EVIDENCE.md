@@ -2,7 +2,7 @@
 
 Package JSON uses exactly `title`, `requirements` (ordered strings), and `sources` (ordered vulnerability, affected, patch, regression). Each source has exactly `role`, `url`, `sha256`, `bytes`. Use complete relevant patched code, not just an isolated diff that hides unchanged vulnerable paths. Pin genuine release/version metadata and test execution provenance when it matters. The included demo deliberately uses a small, fully inspectable synthetic example.
 
-`evidence/demo-package.json` locks the public fixture commit after it is pushed. Requirements independently ask for relative sibling traversal protection and absolute-path protection, so the partial fix has an unambiguous ordered result: MISSING, SATISFIED.
+`evidence/demo-package.json` locks the public fixture commit after it is pushed. Requirements independently ask for relative sibling traversal protection and absolute-path protection, so the two dimensions can be inspected separately. The live strict root-cause assessment returned MISSING, MISSING and UNRESOLVED; see DEPLOYMENT.md for the interpretation and the preliminary expectation.
 
 `evidence/regression.py` runs the real partial patch: normal nested reads work, absolute input is rejected, and relative sibling traversal still returns a synthetic secret. These are counterexample assertions, not a passing claim that the patch closes the issue. Full Consensus should independently inspect this evidence and identify partial remediation.
 

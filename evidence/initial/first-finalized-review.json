@@ -1,0 +1,60 @@
+{
+  "history": [
+    {
+      "assessment": {
+        "baseline": false,
+        "linkage": false,
+        "checks": [
+          "UNKNOWN",
+          "UNKNOWN"
+        ],
+        "verdict": "INCONCLUSIVE",
+        "reason": "INVALID_ASSESSMENT",
+        "evidence": {}
+      },
+      "attempt": 1,
+      "contract": "0xe4ed5818a5441918a3dAd452eDb06936345d490b",
+      "domain": "RemedySeal/v1",
+      "owner": "0x0a6a54B9e0fd10eD8E258a5955b26710f58D389f",
+      "package_hash": "5401cb6e4e346d9a5bb3283a2132ed138353ba5a6b6a3597f9285fdc895ce9f8",
+      "previous_hash": "",
+      "review_id": 0,
+      "decision_hash": "1f0270934ca6e20a7f9b22152cb8872cd0b3ddda3e79df1ebe69c92d2dc81070"
+    }
+  ],
+  "owner": "0x0a6a54B9e0fd10eD8E258a5955b26710f58D389f",
+  "package": {
+    "title": "RS-DEMO-001: Absolute-path patch leaves sibling traversal bypass",
+    "requirements": [
+      "Prevent relative sibling-directory traversal such as ../reports-secret/token.txt from reading outside the reports directory.",
+      "Reject absolute report names into sibling directories while allowing normal nested relative report reads."
+    ],
+    "sources": [
+      {
+        "role": "vulnerability",
+        "url": "https://raw.githubusercontent.com/haris4587/RemedySeal/57350650ea943ebe227fa094639a0765ef1ce6c6/evidence/vulnerability.md",
+        "sha256": "2a0220439c2dd809c6e971c505226b6245e7213a66fb27e4a3f0dae48276a482",
+        "bytes": 821
+      },
+      {
+        "role": "affected",
+        "url": "https://raw.githubusercontent.com/haris4587/RemedySeal/57350650ea943ebe227fa094639a0765ef1ce6c6/evidence/affected.py",
+        "sha256": "b5f43918d118c2a604f9a20283904c187c1744363d69800a5c94d3ca0b65dd17",
+        "bytes": 245
+      },
+      {
+        "role": "patch",
+        "url": "https://raw.githubusercontent.com/haris4587/RemedySeal/57350650ea943ebe227fa094639a0765ef1ce6c6/evidence/patch.py",
+        "sha256": "7bb250532d243c332b1999031cef5828f56549100a7f87e3a27b3b3b86424508",
+        "bytes": 416
+      },
+      {
+        "role": "regression",
+        "url": "https://raw.githubusercontent.com/haris4587/RemedySeal/57350650ea943ebe227fa094639a0765ef1ce6c6/evidence/regression.py",
+        "sha256": "eb9180fbf311312498eb6a7044f620421cc079ce8feb33008ef4abc850496277",
+        "bytes": 1309
+      }
+    ]
+  },
+  "package_hash": "5401cb6e4e346d9a5bb3283a2132ed138353ba5a6b6a3597f9285fdc895ce9f8"
+}

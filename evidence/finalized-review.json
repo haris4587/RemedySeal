@@ -1,0 +1,127 @@
+{
+  "history": [
+    {
+      "assessment": {
+        "baseline": true,
+        "linkage": true,
+        "checks": [
+          "MISSING",
+          "MISSING"
+        ],
+        "verdict": "UNRESOLVED",
+        "reason": "ASSESSED",
+        "evidence": {
+          "baseline": true,
+          "linkage": true,
+          "baseline_quotes": [
+            {
+              "source": 0,
+              "quote": "it, then uses a string startswith containment check. A sibling directory named reports-secret"
+            },
+            {
+              "source": 0,
+              "quote": "shares the reports prefix, so ../reports-secret/token.txt escapes the allowed directory."
+            },
+            {
+              "source": 1,
+              "quote": "if not str(target).startswith(str(base)):"
+            }
+          ],
+          "linkage_quotes": [
+            {
+              "source": 1,
+              "quote": "def load_report(root, name):"
+            },
+            {
+              "source": 1,
+              "quote": "if not str(target).startswith(str(base)):"
+            },
+            {
+              "source": 2,
+              "quote": "# This partial patch rejects absolute input but retains the vulnerable prefix check."
+            },
+            {
+              "source": 2,
+              "quote": "if Path(name).is_absolute():"
+            },
+            {
+              "source": 2,
+              "quote": "if not str(target).startswith(str(base)):"
+            }
+          ],
+          "checks": [
+            {
+              "status": "MISSING",
+              "quotes": [
+                {
+                  "source": 2,
+                  "quote": "# This partial patch rejects absolute input but retains the vulnerable prefix check."
+                },
+                {
+                  "source": 2,
+                  "quote": "if not str(target).startswith(str(base)):"
+                }
+              ]
+            },
+            {
+              "status": "MISSING",
+              "quotes": [
+                {
+                  "source": 2,
+                  "quote": "if Path(name).is_absolute():"
+                },
+                {
+                  "source": 2,
+                  "quote": "if not str(target).startswith(str(base)):"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "attempt": 1,
+      "contract": "0x350E2780656d22D67089e10A3ACE4f811cF987b7",
+      "domain": "RemedySeal/v1",
+      "owner": "0x0a6a54B9e0fd10eD8E258a5955b26710f58D389f",
+      "package_hash": "5401cb6e4e346d9a5bb3283a2132ed138353ba5a6b6a3597f9285fdc895ce9f8",
+      "previous_hash": "",
+      "review_id": 0,
+      "decision_hash": "26829716154f1269dd4e6eb1897d433072bf9a416dcc98f967f6a3a5b8caa2ee"
+    }
+  ],
+  "owner": "0x0a6a54B9e0fd10eD8E258a5955b26710f58D389f",
+  "package": {
+    "title": "RS-DEMO-001: Absolute-path patch leaves sibling traversal bypass",
+    "requirements": [
+      "Prevent relative sibling-directory traversal such as ../reports-secret/token.txt from reading outside the reports directory.",
+      "Reject absolute report names into sibling directories while allowing normal nested relative report reads."
+    ],
+    "sources": [
+      {
+        "role": "vulnerability",
+        "url": "https://raw.githubusercontent.com/haris4587/RemedySeal/57350650ea943ebe227fa094639a0765ef1ce6c6/evidence/vulnerability.md",
+        "sha256": "2a0220439c2dd809c6e971c505226b6245e7213a66fb27e4a3f0dae48276a482",
+        "bytes": 821
+      },
+      {
+        "role": "affected",
+        "url": "https://raw.githubusercontent.com/haris4587/RemedySeal/57350650ea943ebe227fa094639a0765ef1ce6c6/evidence/affected.py",
+        "sha256": "b5f43918d118c2a604f9a20283904c187c1744363d69800a5c94d3ca0b65dd17",
+        "bytes": 245
+      },
+      {
+        "role": "patch",
+        "url": "https://raw.githubusercontent.com/haris4587/RemedySeal/57350650ea943ebe227fa094639a0765ef1ce6c6/evidence/patch.py",
+        "sha256": "7bb250532d243c332b1999031cef5828f56549100a7f87e3a27b3b3b86424508",
+        "bytes": 416
+      },
+      {
+        "role": "regression",
+        "url": "https://raw.githubusercontent.com/haris4587/RemedySeal/57350650ea943ebe227fa094639a0765ef1ce6c6/evidence/regression.py",
+        "sha256": "eb9180fbf311312498eb6a7044f620421cc079ce8feb33008ef4abc850496277",
+        "bytes": 1309
+      }
+    ]
+  },
+  "package_hash": "5401cb6e4e346d9a5bb3283a2132ed138353ba5a6b6a3597f9285fdc895ce9f8"
+}
